@@ -12,13 +12,13 @@ create table accout(
 	id_accout int identity primary key,
 	username varchar(50) not null unique,
 	password varchar(255) not null,
-	decentralization int check(decentralization >= 0)
+	decentralization int check(decentralization >= 0),
+	status bit default(0)
 )
 go
 create table employee(
 	employee_id int identity primary key,
 	id_accout int foreign key references accout(id_accout),
-	identity_card varchar(12) not null unique,
 	name nvarchar(100) not null,
 	phone varchar(10) not null unique,
 	email varchar(50) not null unique,
