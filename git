@@ -1,0 +1,47 @@
+[33mcommit bf19fc18cf228ed22a393a239558e3511c615c07[m[33m ([m[1;36mHEAD -> [m[1;32mmaster[m[33m, [m[1;31morigin/master[m[33m, [m[1;31morigin/HEAD[m[33m)[m
+Author: nguyenvanthang1012 <59723664+nguyenvanthang1012@users.noreply.github.com>
+Date:   Tue Jan 14 19:30:51 2020 +0700
+
+    create Application forder
+
+[33mcommit ba35be65909c54e135a8238e13e126cef935d53d[m
+Author: nguyenvanthang1012 <59723664+nguyenvanthang1012@users.noreply.github.com>
+Date:   Tue Jan 14 11:46:07 2020 +0700
+
+    update tai_lieu_dac_ta.docx file
+
+[33mcommit 2c91bfba65b1f83e61bb2d1e3584627f91339b8e[m
+Author: nguyenvanthang1012 <59723664+nguyenvanthang1012@users.noreply.github.com>
+Date:   Tue Jan 14 11:44:37 2020 +0700
+
+    update database.sql file
+
+[33mcommit 6baa5039dfc928431e043bc09e3e480d93400a1d[m
+Author: nguyenvanthang1012 <59723664+nguyenvanthang1012@users.noreply.github.com>
+Date:   Tue Jan 14 09:11:03 2020 +0700
+
+    create database.sql file
+
+[33mcommit 3ef6cdd1375e899741d6ed4f06f9906403dbac2f[m
+Author: nguyenvanthang1012 <59723664+nguyenvanthang1012@users.noreply.github.com>
+Date:   Sat Jan 11 10:10:24 2020 +0700
+
+    tạo tài liệu đắc tả
+
+[33mcommit 206b77dd29e93d7909503ec36b0c19117966b00b[m
+Author: nguyenvanthang1012 <59723664+nguyenvanthang1012@users.noreply.github.com>
+Date:   Sat Jan 11 10:04:15 2020 +0700
+
+    Delete index.txt
+
+[33mcommit e67ce979b9d8df23a95e339f7f685ffc4f7bc7bc[m
+Author: nguyenvanthang1012 <59723664+nguyenvanthang1012@users.noreply.github.com>
+Date:   Fri Jan 10 15:05:22 2020 +0700
+
+    Add index.txt file
+
+[33mcommit 333bf181b52b038367a22d54df56879340e1d173[m
+Author: nguyenvanthang1012 <59723664+nguyenvanthang1012@users.noreply.github.com>
+Date:   Fri Jan 10 14:42:49 2020 +0700
+
+    Initial commit

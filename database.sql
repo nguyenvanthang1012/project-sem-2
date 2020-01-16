@@ -8,11 +8,22 @@ create table category(
 	status bit default(0)
 )
 go
-create table admin(
-	id int identity primary key,
-	username varchar(20) not null unique,
-	sdt varchar(10) not null unique,
-	password varchar(255) not null
+create table accout(
+	id_accout int identity primary key,
+	username varchar(50) not null unique,
+	password varchar(255) not null,
+	decentralization int check(decentralization >= 0)
+)
+go
+create table employee(
+	employee_id int identity primary key,
+	id_accout int foreign key references accout(id_accout),
+	identity_card varchar(12) not null unique,
+	name nvarchar(100) not null,
+	phone varchar(10) not null unique,
+	email varchar(50) not null unique,
+	home_town nvarchar(255) not null,
+	status bit default(0)
 )
 go
 create table book(
@@ -38,16 +49,7 @@ create table student(
 	status tinyint default(0),
 )
 go
-create table employee(
-	employee_id int identity primary key,
-	identity_card varchar(12) not null unique,
-	name nvarchar(100) not null,
-	phone varchar(10) not null unique,
-	email varchar(50) not null unique,
-	home_town nvarchar(255) not null,
-	status bit default(0)
-)
-go
+
 create table borrow(
 	borrow_id int identity primary key,
 	student_id int foreign key references student(id),
