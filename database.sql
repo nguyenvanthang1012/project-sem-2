@@ -56,7 +56,6 @@ create table borrow(
 	student_id int foreign key references student(id),
 	employee_id int foreign key references employee(employee_id),
 	date_borrow datetime default GETDATE() not null,
-	date_return datetime not null check(date_return > date_borrow),
 	status bit default(0)
 )
 go
@@ -518,7 +517,6 @@ go
 	student_id int foreign key references student(id),
 	employee_id int foreign key references employee(employee_id),
 	date_borrow datetime default GETDATE() not null,
-	date_return datetime not null check(date_return > date_borrow),
 	status bit default(0)
 */
 
@@ -543,12 +541,11 @@ go
 create proc sp_createBorrow
 @student_id int,
 @employee_id int,
-@date_return datetime,
 @error nvarchar(255) output
 as
-	if(exists(select * from student where id = @student_id AND status = 0) AND @date_return > GETDATE() AND exists(select * from employee where employee_id = @employee_id AND status = 0))
+	if(exists(select * from student where id = @student_id AND status = 0) AND exists(select * from employee where employee_id = @employee_id AND status = 0))
 		begin
-			insert into borrow(student_id , employee_id , date_return) values(@student_id , @employee_id , @date_return)
+			insert into borrow(student_id , employee_id) values(@student_id , @employee_id)
 			set @error = ''
 			return
 		end
@@ -559,12 +556,11 @@ create proc sp_UpdateBorrow
 @borrow_id int,
 @student_id int,
 @employee_id int,
-@date_return datetime,
 @error nvarchar(255) output
 as
 	if(exists(select * from borrow where borrow_id = @borrow_id))
 		begin
-			update borrow set student_id = @student_id , employee_id = employee_id , date_return = @date_return where borrow_id = @borrow_id
+			update borrow set student_id = @student_id , employee_id = employee_id where borrow_id = @borrow_id
 			set @error = ''
 			return
 		end
@@ -583,6 +579,190 @@ as
 		end
 	set @error = N'Xóa không thành công'
 go
-	
 
+/*Borrow_detail
+	borrow_detail_id int identity primary key,
+	borrow_id int foreign key references borrow(borrow_id),
+	book_id int foreign key references book(book_id),
+	date_appointment date not null,
+	date_return datetime,
+	status bit default(0)
+*/
+
+create proc sp_GetAllBorrowDetail
+as
+	select * from borrow_detail where status = 0
+go
+
+create proc sp_GetBorrowDetail
+@borrow_detail_id int,
+@error nvarchar(255) output
+as
+	if(exists(select * from borrow_detail where borrow_detail_id = @borrow_detail_id))
+		begin
+			select * from borrow_detail where borrow_detail_id = @borrow_detail_id
+			set @error = ''
+			return
+		end
+	set @error = N'Không tồn tại đơn chi tiết này'
+go
+
+create proc sp_CreateBorrowDetail
+@borrow_id int,
+@book_id int,
+@date_appointment date,
+--@date_return datetime,
+--@status bit,
+@error nvarchar(255) output
+as
+	if(exists(select * from borrow where borrow_id = @borrow_id) AND exists(select * from book where book_id = @book_id))
+		begin
+			insert into borrow_detail(borrow_id , book_id , date_appointment ) values(@borrow_id , @book_id , @date_appointment)
+			set @error = ''
+			return
+		end
+	set @error = 'Thêm không thành công'
+go
+
+create proc sp_UpdateBorrowDetail
+@borrow_detail_id int,
+@book_id int,
+@date_appointment date,
+@date_return datetime,
+@error nvarchar(255) output
+as
+	if(exists(select * from borrow_detail where borrow_detail_id = @borrow_detail_id))
+		begin
+			update borrow_detail set book_id = @book_id, @date_appointment = @date_appointment , date_return = @date_return where borrow_detail_id = @borrow_detail_id
+			set @error = ''
+			return
+		end
+	set @error = N'Cập nhật không thành công'
+go
+
+create proc sp_DeleteBorrowDetail
+@borrow_detail_id int,
+@error nvarchar(255) output
+as
+	if(exists(select * from borrow_detail where borrow_detail_id = @borrow_detail_id))
+		begin
+			update borrow_detail set status = 1 where borrow_detail_id = @borrow_detail_id
+			set @error = ''
+			return
+		end
+	set @error = N'id không tồn tại'
+go
+/*punish 
+	punish_id int identity primary key,
+	student_id int foreign key references student(id),
+	money float check(money > 0),
+	reason ntext not null,
+	employee_id int foreign key references employee(employee_id),
+	borrow_detail_id int foreign key references borrow_detail(borrow_detail_id),
+	status bit default(0),
+*/
+ create proc sp_GetAllPunish
+ as
+	select * from punish
+go
+
+create proc sp_GetPunish
+@punish_id int,
+@error nvarchar(255)
+as
+	if(exists(select * from punish where punish_id = @punish_id))
+		begin
+			select * from punish where punish_id = @punish_id
+			set @error = ''
+			return
+		end
+	set @error = N'Không tồn tại id'
+go
+
+create proc sp_CreatePunish
+@student_id int,
+@money float,
+@reason ntext,
+@employee_id int,
+@borrow_detail_id int,
+@error nvarchar(255)
+as
+	if(exists(select * from student where id = @student_id))
+		begin
+			if(exists(select * from borrow_detail where borrow_detail_id = @borrow_detail_id))
+				begin
+					if(exists(select * from employee where employee_id = @employee_id))
+						begin
+							insert into punish(student_id , money , reason , employee_id , borrow_detail_id) values(@student_id , @money , @reason , @employee_id, @borrow_detail_id)
+							set @error = ''
+							return
+						end
+					else
+						begin
+							set @error = N'Mã nhân viên không đúng'
+							return
+						end
+				end
+			else
+				begin
+					set @error = N'Mã lượt mượn chi tiết không đúng'
+					return
+				end
+		end
+	set @error = N'Mã nhân viên không đúng'
+go
+
+create proc sp_UpdatePunish
+@punish_id int,
+@student_id int,
+@money float,
+@reason ntext,
+@employee_id int,
+@borrow_detail_id int,
+@error nvarchar(255)
+as
+	if(exists(select * from punish where punish_id = @punish_id))
+		begin
+			if(exists(select * from student where id = @student_id))
+				begin
+					if(exists(select * from borrow_detail where borrow_detail_id = @borrow_detail_id))
+						begin
+							if(exists(select * from employee where employee_id = @employee_id))
+								begin
+									update punish set student_id = @student_id , money = @money , reason = @reason , employee_id = @employee_id ,borrow_detail_id = @borrow_detail_id where punish_id = @punish_id
+									set @error = ''
+									return
+								end
+							else
+								begin
+									set @error = N'Mã nhân viên không đúng'
+									return
+								end
+						end
+					else
+						begin
+							set @error = N'Mã lượt mượn chi tiết không đúng'
+							return
+						end
+				end
+			else
+				begin
+					set @error = N'Mã nhân viên không đúng'
+					return
+				end
+		end
+	set @error = N'Mã phạt không đúng'
+go
+
+create proc sp_DeletePunish
+@punish_id int,
+@error nvarchar(255) output
+as
+	if(exists(select * from punish where punish_id = @punish_id))
+		begin
+			update punish set status = 1 where punish_id = @punish_id
+			set @error = ''
+			return
+		end
+	set @error = N'Mã phạt không tồn tại'
 
