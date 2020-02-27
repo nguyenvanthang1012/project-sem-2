@@ -20,6 +20,7 @@ create table employee(
 	employee_id int identity primary key,
 	account_id int foreign key references account(account_id) unique,
 	name nvarchar(100) not null,
+	dateofbirth date not null,
 	phone varchar(10) not null unique,
 	email varchar(50) not null unique,
 	home_town nvarchar(255) not null,
@@ -264,6 +265,7 @@ go
 create proc sp_UpdateEmployee
 @account_id int,
 @name nvarchar(100),
+@dateofbirth date,
 @phone varchar(10),
 @email varchar(50),
 @home_town nvarchar(255),
@@ -272,7 +274,7 @@ create proc sp_UpdateEmployee
 as
 	if(exists(select * from employee where account_id = @account_id AND status = 0 ))
 		begin
-			update employee set name = @name , phone = @phone , email = @email , home_town = @home_town where account_id = @account_id
+			update employee set name = @name , dateofbirth = @dateofbirth, phone = @phone , email = @email , home_town = @home_town where account_id = @account_id
 			set @error = ''
 			return
 		end
@@ -293,6 +295,7 @@ go
 
 create proc sp_CreateEmployee
 @name nvarchar(100),
+@dateofbirth date,
 @phone varchar(10),
 @email varchar(50),
 @home_town nvarchar(255),
@@ -312,7 +315,7 @@ as
 				end
 			else
 				begin
-					insert into employee(name , phone , email, home_town) values(@name , @phone , @email , @home_town)
+					insert into employee(name , dateofbirth , phone , email, home_town) values(@name , @dateofbirth, @phone , @email , @home_town)
 					set @error = ''
 					return
 				end
