@@ -97,7 +97,7 @@ as
 	select * from category where name like @name
 go
 
-create proc sp_AddCategory
+create proc sp_CreateCategory
 @name nvarchar(100)
 as
 	insert into category(name) values (@name)
@@ -160,18 +160,17 @@ go
 create proc sp_UpdateAccount
 @account_id int,
 @password varchar(255),
-@status bit,
 @error nvarchar(255) output
 as
 	if(exists(select * from account where account_id = @account_id))
 		begin
-			if((select status from account where account_id = @account_id) = 1 AND @status = 0)
+			if((select status from account where account_id = @account_id) = 1)
 				begin
 					set @error = N'Cập nhật không thành công'
 				end
 			else
 				begin
-					update account set password = @password , status = @status where account_id = @account_id
+					update account set password = @password where account_id = @account_id
 					set @error = N''
 				end
 		end
@@ -181,7 +180,7 @@ as
 		end
 go
 
-create proc sp_InseartAccount
+create proc sp_CreateAccount
 @username varchar(50),
 @password varchar(255),
 @decentralization int,
@@ -224,13 +223,13 @@ as
 	select * from employee where status = 0
 go
 
-create proc sp_FindByPhone
+create proc sp_FindByPhoneEmployee
 @phone varchar(10)
 as
 	select * from employee where phone like @phone
 go
 
-create proc sp_FindByEmail
+create proc sp_FindByEmailEmployee
 @email varchar(50)
 as
 	select * from employee where email like @email
@@ -664,7 +663,11 @@ go
 	borrow_detail_id int foreign key references borrow_detail(borrow_detail_id),
 	status bit default(0),
 */
- create proc sp_GetAllPunish
+ create proc 
+
+
+
+
  as
 	select * from punish
 go

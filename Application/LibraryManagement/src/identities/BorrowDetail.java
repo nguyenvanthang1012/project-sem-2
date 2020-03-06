@@ -12,7 +12,7 @@ import java.sql.Date;
  * @author A
  */
 public class BorrowDetail {
-    private int id;
+    private int borrowDetailId;
     private int borrowId;
     private int bookId;
     private Date dateAppointment;
@@ -28,20 +28,20 @@ public class BorrowDetail {
         this.dateReturn = dateReturn;
     }
 
-    public BorrowDetail(int id, int borrowId, int bookId, Date dateAppointment, Date dateReturn) {
-        this.id = id;
+    public BorrowDetail(int borrowDetailId, int borrowId, int bookId, Date dateAppointment, Date dateReturn) {
+        this.borrowDetailId = borrowDetailId;
         this.borrowId = borrowId;
         this.bookId = bookId;
         this.dateAppointment = dateAppointment;
         this.dateReturn = dateReturn;
     }
 
-    public int getId() {
-        return id;
+    public int getBorrowDetailId() {
+        return borrowDetailId;
     }
 
-    public void setId(int id) {
-        this.id = id;
+    public void setBorrowDetailId(int borrowDetailId) {
+        this.borrowDetailId = borrowDetailId;
     }
 
     public int getBorrowId() {
@@ -79,6 +79,6 @@ public class BorrowDetail {
     
     @Override
     public String toString() {
-        return "BorrowDetail{" + "id=" + id + ", borrowId=" + borrowId + ", bookId=" + bookId + ", dateAppointment=" + dateAppointment + ", dateReturn=" + dateReturn + '}';
+        return "BorrowDetail{" + "id=" + borrowDetailId + ", borrowId=" + borrowId + ", bookId=" + bookId + ", dateAppointment=" + dateAppointment + ", dateReturn=" + dateReturn + '}';
     }
 }

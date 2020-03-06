@@ -9,34 +9,34 @@ package identities;
  *
  * @author A
  */
-public class Accout {
-    private int id;
+public class Account {
+    private int account_id;
     private String userName;
     private String password;
     private int decentralization;
 
-    public Accout(int id, String userName, String password, int decentralization) {
-        this.id = id;
+    public Account(int account_id, String userName, String password, int decentralization) {
+        this.account_id = account_id;
         this.userName = userName;
         this.password = password;
         this.decentralization = decentralization;
     }
 
-    public Accout(String userName, String password, int decentralization) {
+    public Account(String userName, String password, int decentralization) {
         this.userName = userName;
         this.password = password;
         this.decentralization = decentralization;
     }
 
-    public Accout() {
+    public Account() {
     }
 
-    public int getId() {
-        return id;
+    public int getAccount_id() {
+        return account_id;
     }
 
-    public void setId(int id) {
-        this.id = id;
+    public void setAccount_id(int account_id) {
+        this.account_id = account_id;
     }
 
     public String getUserName() {
@@ -65,7 +65,7 @@ public class Accout {
 
     @Override
     public String toString() {
-        return "Accout{" + "id=" + id + ", userName=" + userName + ", password=" + password + ", decentralization=" + decentralization + '}';
+        return "Accout{" + "id=" + account_id + ", userName=" + userName + ", password=" + password + ", decentralization=" + decentralization + '}';
     }
     
     

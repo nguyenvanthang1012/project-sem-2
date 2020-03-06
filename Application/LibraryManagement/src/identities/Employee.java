@@ -10,8 +10,8 @@ package identities;
  * @author A
  */
 public class Employee {
-    private int id;
-    private int idAccout;
+    private int employeeId;
+    private int accountId;
     private String name;
     private String phone;
     private String email;
@@ -20,37 +20,37 @@ public class Employee {
     public Employee() {
     }
 
-    public Employee(int id, int idAccout, String name, String phone, String email, String home_town) {
-        this.id = id;
-        this.idAccout = idAccout;
+    public Employee(int employeeId, int accountId, String name, String phone, String email, String home_town) {
+        this.employeeId = employeeId;
+        this.accountId = accountId;
         this.name = name;
         this.phone = phone;
         this.email = email;
         this.home_town = home_town;
     }
 
-    public Employee(int idAccout, String name, String phone, String email, String home_town) {
-        this.idAccout = idAccout;
+    public Employee(int accountId, String name, String phone, String email, String home_town) {
+        this.accountId = accountId;
         this.name = name;
         this.phone = phone;
         this.email = email;
         this.home_town = home_town;
     }
 
-    public int getId() {
-        return id;
+    public int getEmployeeId() {
+        return employeeId;
     }
 
-    public void setId(int id) {
-        this.id = id;
+    public void setEmployeeId(int employeeId) {
+        this.employeeId = employeeId;
     }
 
-    public int getIdAccout() {
-        return idAccout;
+    public int getAccountId() {
+        return accountId;
     }
 
-    public void setId_accout(int idAccout) {
-        this.idAccout = idAccout;
+    public void setAccountId(int accountId) {
+        this.accountId = accountId;
     }
 
     public String getName() {
@@ -87,6 +87,6 @@ public class Employee {
     
     @Override
     public String toString() {
-        return "Employee{" + "id=" + id + ", id_accout=" + idAccout + ", name=" + name + ", phone=" + phone + ", email=" + email + ", home_town=" + home_town + '}';
+        return "Employee{" + "id=" + employeeId + ", accountId=" + accountId + ", name=" + name + ", phone=" + phone + ", email=" + email + ", home_town=" + home_town + '}';
     }
 }

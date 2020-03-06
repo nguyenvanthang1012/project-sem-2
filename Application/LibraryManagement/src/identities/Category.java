@@ -10,15 +10,15 @@ package identities;
  * @author A
  */
 public class Category {
-    private int id;
+    private int catId;
     private String name;
     private byte status;
 
     public Category() {
     }
 
-    public Category(int id, String name, byte status) {
-        this.id = id;
+    public Category(int catId, String name, byte status) {
+        this.catId = catId;
         this.name = name;
         this.status = status;
     }
@@ -28,12 +28,12 @@ public class Category {
         this.status = status;
     }
 
-    public int getId() {
-        return id;
+    public int getCatId() {
+        return catId;
     }
 
-    public void setId(int cat_id) {
-        this.id = cat_id;
+    public void setCatId(int cat_id) {
+        this.catId = cat_id;
     }
 
     public String getName() {

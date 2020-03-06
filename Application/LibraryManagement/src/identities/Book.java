@@ -10,7 +10,7 @@ import java.sql.Date;
  * @author A
  */
 public class Book {
-    private int id;
+    private int bookId;
     private String name;
     private int catId;
     private String author;
@@ -34,8 +34,8 @@ public class Book {
         this.price = price;
     }
 
-    public Book(int id, String name, int catId, String author, String description, Date publacationDate, Date dateCreate, int quantity, float price) {
-        this.id = id;
+    public Book(int bookId, String name, int catId, String author, String description, Date publacationDate, Date dateCreate, int quantity, float price) {
+        this.bookId = bookId;
         this.name = name;
         this.catId = catId;
         this.author = author;
@@ -46,12 +46,12 @@ public class Book {
         this.price = price;
     }
 
-    public int getId() {
-        return id;
+    public int getBookId() {
+        return bookId;
     }
 
-    public void setId(int id) {
-        this.id = id;
+    public void setBook_id(int bookId) {
+        this.bookId = bookId;
     }
 
     public String getName() {
@@ -120,7 +120,7 @@ public class Book {
 
     @Override
     public String toString() {
-        return "Book{" + "id=" + id + ", name=" + name + ", catId=" + catId + ", author=" + author + ", description=" + description + ", publacationDate=" + publacationDate + ", dateCreate=" + dateCreate + ", quantity=" + quantity + ", price=" + price + '}';
+        return "Book{" + "id=" + bookId + ", name=" + name + ", catId=" + catId + ", author=" + author + ", description=" + description + ", publacationDate=" + publacationDate + ", dateCreate=" + dateCreate + ", quantity=" + quantity + ", price=" + price + '}';
     }
 
     

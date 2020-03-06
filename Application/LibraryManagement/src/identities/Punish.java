@@ -10,7 +10,7 @@ package identities;
  * @author A
  */
 public class Punish {
-    private int id;
+    private int punishId;
     private int studentId;
     private float money;
     private String reason;
@@ -28,8 +28,8 @@ public class Punish {
         this.borrowDetailId = borrowDetailId;
     }
 
-    public Punish(int id, int studentId, float money, String reason, int employeeId, int borrowDetailId) {
-        this.id = id;
+    public Punish(int punishId, int studentId, float money, String reason, int employeeId, int borrowDetailId) {
+        this.punishId = punishId;
         this.studentId = studentId;
         this.money = money;
         this.reason = reason;
@@ -37,12 +37,12 @@ public class Punish {
         this.borrowDetailId = borrowDetailId;
     }
 
-    public int getId() {
-        return id;
+    public int getPunishId() {
+        return punishId;
     }
 
-    public void setId(int id) {
-        this.id = id;
+    public void setPunishId(int punishId) {
+        this.punishId = punishId;
     }
 
     public int getStudentId() {
@@ -87,7 +87,7 @@ public class Punish {
 
     @Override
     public String toString() {
-        return "Punish{" + "id=" + id + ", studentId=" + studentId + ", money=" + money + ", reason=" + reason + ", employeeId=" + employeeId + ", borrowDetailId=" + borrowDetailId + '}';
+        return "Punish{" + "id=" + punishId + ", studentId=" + studentId + ", money=" + money + ", reason=" + reason + ", employeeId=" + employeeId + ", borrowDetailId=" + borrowDetailId + '}';
     }
     
     

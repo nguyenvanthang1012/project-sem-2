@@ -12,7 +12,7 @@ import java.sql.Date;
  * @author A
  */
 public class Borrow {
-    private int id;
+    private int borrowId;
     private int studentId;
     private int imployeeId;
     private Date dateBorrow;
@@ -26,19 +26,19 @@ public class Borrow {
         this.dateBorrow = dateBorrow;
     }
 
-    public Borrow(int id, int studentId, int imployeeId, Date dateBorrow) {
-        this.id = id;
+    public Borrow(int borrowId, int studentId, int imployeeId, Date dateBorrow) {
+        this.borrowId = borrowId;
         this.studentId = studentId;
         this.imployeeId = imployeeId;
         this.dateBorrow = dateBorrow;
     }
 
-    public int getId() {
-        return id;
+    public int getBorrowId() {
+        return borrowId;
     }
 
-    public void setId(int id) {
-        this.id = id;
+    public void setBorrowId(int borrowId) {
+        this.borrowId = borrowId;
     }
 
     public int getStudentId() {
@@ -67,7 +67,7 @@ public class Borrow {
 
     @Override
     public String toString() {
-        return "Borrow{" + "id=" + id + ", studentId=" + studentId + ", imployeeId=" + imployeeId + ", dateBorrow=" + dateBorrow + '}';
+        return "Borrow{" + "id=" + borrowId + ", studentId=" + studentId + ", imployeeId=" + imployeeId + ", dateBorrow=" + dateBorrow + '}';
     }
     
     
