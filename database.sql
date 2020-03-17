@@ -103,7 +103,7 @@ create proc sp_CreateCategory
 as
 	if(exists(select * from category where name = @name))
 		begin
-			set @error = N'Tên đã tồn tại'
+			set @error = N'Tên đã tồn tại-'
 			return
 		end
 	insert into category(name) values (@name)
@@ -119,12 +119,12 @@ as
 
 	if( NOT exists(select * from category where cat_id = @cat_id AND status = 0))
 		begin
-			set @error = N'Mã loại sản phẩm không tồn tại'
+			set @error = N'Mã loại sản phẩm không tồn tại-'
 			set @flag = 1
 		end
 	if(exists(select * from category where name = @name AND status = 0))
 		begin
-			set @error += N'-Tên loại sản phẩm đã tồn tại'
+			set @error += N'Tên loại sản phẩm đã tồn tại-'
 			set @flag = 1
 		end
 	if(@flag = 0)
@@ -144,7 +144,7 @@ as
 			set @error =''
 			return
 		end
-	set @error = N'Mã loại sản phẩm không tồn tại'
+	set @error = N'Mã loại sản phẩm không tồn tại-'
 go
 
 /*	account
@@ -178,24 +178,15 @@ create proc sp_UpdateAccount
 @password varchar(255),
 @error nvarchar(255) output
 as
-	if(exists(select * from account where account_id = @account_id))
+	
+	if(NOT exists(select * from account where account_id = @account_id and status = 0))
 		begin
-			if((select status from account where account_id = @account_id) = 1)
-				begin
-					set @error = N'Cập nhật không thành công'
-					return
-				end
-			else
-				begin
-					update account set password = @password where account_id = @account_id
-					set @error = N''
-					return
-				end
+			set @error = 'không tồn tại tài khoản-'
 		end
 	else
 		begin
-			set @error = N'Không tồn tại id'
-			return
+			update account set password = @password where account_id = @account_id
+			set @error = ''
 		end
 go
 
@@ -207,7 +198,7 @@ create proc sp_CreateAccount
 as
 	if(exists(select * from account where username = @username))
 		begin
-			set @error =  N'Tên đăng nhập đã tồn tại'
+			set @error =  N'Tên đăng nhập đã tồn tại-'
 			return
 		end
 	insert into account values(@username,@password,@decentralization,0)
@@ -288,16 +279,16 @@ as
 	set @flag = 0
 	if(NOT exists(select * from account where account_id = @account_id))
 		begin
-			set @error = N'Mã tài khoản không tồn tại'
+			set @error = N'Mã tài khoản không tồn tại-'
 		end
 	if(exists(select * from employee where phone = @phone))
 		begin
-			set @error = N'-Số điện thoại đã tồn tại'
+			set @error = N'Số điện thoại đã tồn tại-'
 			set @flag = 1
 		end
 	if(exists(select * from employee where email = @email))
 		begin
-			set @error += N'-Email đã tồn tại'
+			set @error += N'Email đã tồn tại-'
 			set @flag = 1
 		end
 	if(@flag = 0)
@@ -322,22 +313,22 @@ as
 	set @flag = 0
 	if(NOT exists(select * from employee where employee_id = @employee_id AND status = 0))
 		begin
-			set @error = N'Mã nhân viên không tồn tại'
+			set @error = N'Mã nhân viên không tồn tại-'
 			set @flag = 1
 		end
 	if(NOT exists(select * from employee where account_id = @account_id AND status = 0))
 		begin
-			set @error = N'-Tài khoản không tồn tại'
+			set @error = N'Tài khoản không tồn tại-'
 			set @flag = 1
 		end
 	if(exists(select * from employee where phone = @phone))
 		begin
-			set @error = N'-Số điện thoại đã tồn tại'
+			set @error = N'Số điện thoại đã tồn tại-'
 			set @flag = 1
 		end
 	if(exists(select * from employee where email = @email))
 		begin
-			set @error += N'-Email đã tồn tại'
+			set @error += N'Email đã tồn tại-'
 			set @flag = 1
 		end
 	if(@flag = 0)
@@ -357,7 +348,7 @@ as
 			update employee set status = 0 where account_id = @account_id
 			set @error = ''
 		end
-	set @error = N'Không tồn tại nhân viên'
+	set @error = N'Không tồn tại nhân viên-'
 go
 
 /*Book
@@ -402,7 +393,7 @@ as
 		end
 	else
 		begin
-			set @error = N'không tồn tại mã sản phảm'
+			set @error = N'không tồn tại mã sản phảm-'
 			return
 		end
 go
@@ -428,13 +419,13 @@ as
 				end
 			else
 				begin
-					set @error = N'Không tồn tại mã loại sách'
+					set @error = N'Không tồn tại mã loại sách-'
 					return
 				end
 		end
 	else
 		begin
-			set @error += N'-Mã sách không tồn tại'
+			set @error += N'Mã sách không tồn tại-'
 			return
 		end
 go
@@ -449,10 +440,10 @@ as
 			set @error = ''
 			return
 		end
-	set @error = N'Sách không tồn tại'
+	set @error = N'Sách không tồn tại-'
 go
 
-/*
+/* Student
 	id int identity primary key,
 	student_id varchar(10) not null unique,
 	name nvarchar(100) not null,
@@ -469,29 +460,15 @@ as
 go
 
 create proc sp_GetStudent 
-@id int,
-@error nvarchar(255) output
+@id int
 as
-	if(exists(select * from student where id = @id))
-		begin
-			select * from student where id = @id
-			set @error = ''
-			return
-		end
-	set @error = N'Không tồn tại sinh viên'
+	select * from student where id = @id and status = 0
 go
 
 create proc sp_GetStudentByStudentId
-@student_id varchar(10),
-@error nvarchar(255) output
+@student_id varchar(10)
 as
-	if(exists(select * from student where student_id = @student_id))
-		begin
-			select * from student where student_id = @student_id
-			set @error = ''
-			return
-		end
-	set @error = N'Không tồn tại mã sinh viên ' + @student_id
+	select * from student where student_id like @student_id and status = 0
 go
 
 create proc sp_CreateStudent
@@ -503,12 +480,24 @@ create proc sp_CreateStudent
 @dateofbirth date,
 @error nvarchar(255) output
 as
-	if(exists(select * from student where student_id = @student_id OR phone = @phone))
+	DECLARE @flag int
+	set @flag = 0
+	
+	if(exists (select * from student where student_id = @student_id and status = 0))
 		begin
-			set @error = N'Thông tin sinh viên đã trùng'
-			return
+			set @error=N'Mã sinh viên đã tồn tại-'
+			set @flag=1
 		end
-	insert into student(student_id , name , gender, class_name , phone , dateofbirth ) values (@student_id , @name , @gender , @class_name , @phone , @dateofbirth)
+	if(exists (select * from student where phone = @phone))
+		begin
+			set @error = N'Số điện thoại đã tồn tại-'
+			set @flag = 1
+		end
+	if(@flag = 0)
+		begin
+			insert into student(student_id , name , gender, class_name , phone , dateofbirth ) values (@student_id , @name , @gender , @class_name , @phone , @dateofbirth)
+			set @error = ''
+		end
 go
 
 create proc sp_UpdateStudent
@@ -521,13 +510,29 @@ create proc sp_UpdateStudent
 @dateofbirth date,
 @error nvarchar(255) output
 as
-	if(exists(select * from student where id = @id))
+	DECLARE @flag int
+	set @flag = 0
+	if(NOT exists (select * from student where is = @id and status = 0))
+		begin
+			set @error = N'Mã không tồn tại-'
+			set @flag = 1
+		end
+	if(exists (select * from student where student_id = @student_id and status = 0))
+		begin
+			set @error=N'Mã sinh viên đã tồn tại-'
+			set @flag=1
+		end
+	if(exists (select * from student where phone = @phone))
+		begin
+			set @error = N'Số điện thoại đã tồn tại-'
+			set @flag = 1
+		end
+	if(@flag = 0)
 		begin
 			update student set student_id = @student_id , name = @name, gender = @gender , class_name = @class_name , phone = @phone,dateofbirth = @dateofbirth where id = @id
-			set @error = N''
+			set @error = ''
 			return
 		end
-	set @error = N'Không tồn tại sinh viên'
 go
 
 create proc sp_DeleteStudent
@@ -571,12 +576,12 @@ as
 	set @flag = 0;
 	if(not exists(select * from student where id = @student_id AND status = 0))
 		begin
-			set @error = N'Mã sinh viên không tồn tại'
+			set @error = N'Mã sinh viên không tồn tại-'
 			set @flag = 1
 		end
 	if(not exists(select * from employee where employee_id = @employee_id AND status = 0))
 		begin
-			set @error = N'-Mã nhân viên không tồn tại'
+			set @error = N'Mã nhân viên không tồn tại-'
 			set @flag = 1
 		end
 	if(@flag = 0)
@@ -598,19 +603,19 @@ as
 
 	if(not exists(select * from borrow where borrow_id = @borrow_id))
 		begin
-			set @error += N'Mã đơn mượn không tồn tại'
+			set @error += N'Mã đơn mượn không tồn tại-'
 			set @flag = 1
 		end
 
 	if(not exists(select * from student where id = @student_id AND status = 0))
 		begin
-			set @error += N'-Mã sinh viên không tồn tại'
+			set @error += N'Mã sinh viên không tồn tại-'
 			set @flag = 1
 		end
 
 	if(not exists(select * from employee where employee_id = @employee_id AND status = 0))
 		begin
-			set @error += N'-Mã nhân viên không tồn tại'
+			set @error += N'Mã nhân viên không tồn tại-'
 			set @flag = 1
 		end
 
@@ -632,7 +637,7 @@ as
 			set	@error = ''
 			return
 		end
-	set @error = N'Không tôn tại đơn mượn'
+	set @error = N'Không tôn tại đơn mượn-'
 go
 
 /*Borrow_detail
@@ -668,12 +673,12 @@ as
 
 	if(NOT exists(select * from borrow where borrow_id = @borrow_id AND status = 0))
 		begin
-			set @error += N'Mã đơn mượn không tồn tại'
+			set @error += N'Mã đơn mượn không tồn tại-'
 			set @flag = 1
 		end
 	if(NOT exists(select * from book where book_id = @book_id AND status = 0))
 		begin
-			set @error += N'-Mã sách không tồn tại'
+			set @error += N'Mã sách không tồn tại-'
 			set @flag = 1
 		end
 	if(@flag = 0)
@@ -695,12 +700,12 @@ as
 	set @flag = 0
 	if(NOT exists(select * from borrow_detail where borrow_detail_id = @borrow_detail_id AND status = 0))
 		begin
-			set @error = N'Không tồn tại mã đơn mượn chi tiết' 
+			set @error = N'Không tồn tại mã đơn mượn chi tiết-' 
 			set @flag = 1
 		end
 	if(NOT exists(select * from book where book_id = @book_id AND status = 0))
 		begin
-			set @error += N'-Không tồn tại mã sách'
+			set @error += N'Không tồn tại mã sách-'
 			set @flag = 1 
 		end
 	if(@flag = 0)
@@ -721,7 +726,7 @@ as
 			set @error = ''
 			return
 		end
-	set @error = N'id không tồn tại'
+	set @error = N'id không tồn tại-'
 go
 /*punish 
 	punish_id int identity primary key,
@@ -741,13 +746,7 @@ create proc sp_GetPunish
 @punish_id int,
 @error nvarchar(255)
 as
-	if(exists(select * from punish where punish_id = @punish_id))
-		begin
-			select * from punish where punish_id = @punish_id
-			set @error = ''
-			return
-		end
-	set @error = N'Không tồn tại id'
+	select * from punish where punish_id = @punish_id
 go
 
 create proc sp_CreatePunish
@@ -758,29 +757,30 @@ create proc sp_CreatePunish
 @borrow_detail_id int,
 @error nvarchar(255)
 as
-	if(exists(select * from student where id = @student_id))
+	DECLARE @flag int
+	set @flag = 0
+	
+	if(Not exists(select * from student where id = @student_id AND status = 0))
 		begin
-			if(exists(select * from borrow_detail where borrow_detail_id = @borrow_detail_id))
-				begin
-					if(exists(select * from employee where employee_id = @employee_id))
-						begin
-							insert into punish(student_id , money , reason , employee_id , borrow_detail_id) values(@student_id , @money , @reason , @employee_id, @borrow_detail_id)
-							set @error = ''
-							return
-						end
-					else
-						begin
-							set @error = N'Mã nhân viên không đúng'
-							return
-						end
-				end
-			else
-				begin
-					set @error = N'Mã lượt mượn chi tiết không đúng'
-					return
-				end
+			set @error = N'Mã Sinh viên không tồn tại-'
+			set @flag = 1
 		end
-	set @error = N'Mã nhân viên không đúng'
+	if(Not exists(select * from employee where employee_id = @employee_id AND status = 0))
+		begin
+			set @error = N'Mã nhân viên không tồn tại-' 
+			set @flag = 1
+		end
+	if(NOT exists(select * from borrow_detail where borrow_detail_id = @borrow_detail_id))
+		begin
+			set @error = N'Mã đơn mượn chi tiết không tồn tại-'
+			set @flag = 1
+		end
+	if(@flag = 0)
+		begin
+			insert into punish(student_id , money , reason , employee_id , borrow_detail_id) values(@student_id , @money , @reason , @employee_id, @borrow_detail_id)
+			set @error = ''
+			return
+		end
 go
 
 create proc sp_UpdatePunish
@@ -791,38 +791,36 @@ create proc sp_UpdatePunish
 @employee_id int,
 @borrow_detail_id int,
 @error nvarchar(255)
-as
-	if(exists(select * from punish where punish_id = @punish_id))
+as	
+	DECLARE @flag int
+	set @flag = 0
+	
+	if(NOT exists(select * from punish where punish_id = @punish_id))
 		begin
-			if(exists(select * from student where id = @student_id))
-				begin
-					if(exists(select * from borrow_detail where borrow_detail_id = @borrow_detail_id))
-						begin
-							if(exists(select * from employee where employee_id = @employee_id))
-								begin
-									update punish set student_id = @student_id , money = @money , reason = @reason , employee_id = @employee_id ,borrow_detail_id = @borrow_detail_id where punish_id = @punish_id
-									set @error = ''
-									return
-								end
-							else
-								begin
-									set @error = N'Mã nhân viên không đúng'
-									return
-								end
-						end
-					else
-						begin
-							set @error = N'Mã lượt mượn chi tiết không đúng'
-							return
-						end
-				end
-			else
-				begin
-					set @error = N'Mã nhân viên không đúng'
-					return
-				end
+			set @error = N'Mã phạt không đúng-'
+			set @flag = 1
 		end
-	set @error = N'Mã phạt không đúng'
+	if(Not exists(select * from student where id = @student_id AND status = 0))
+		begin
+			set @error = N'Mã Sinh viên không tồn tại-'
+			set @flag = 1
+		end
+	if(Not exists(select * from employee where employee_id = @employee_id AND status = 0))
+		begin
+			set @error = N'Mã nhân viên không tồn tại-' 
+			set @flag = 1
+		end
+	if(NOT exists(select * from borrow_detail where borrow_detail_id = @borrow_detail_id))
+		begin
+			set @error = N'Mã đơn mượn chi tiết không tồn tại-'
+			set @flag = 1
+		end
+	if(@flag = 0)
+		begin
+			update punish set student_id = @student_id , money = @money , reason = @reason , employee_id = @employee_id ,borrow_detail_id = @borrow_detail_id where punish_id = @punish_id
+			set @error = ''
+			return
+		end
 go
 
 create proc sp_DeletePunish

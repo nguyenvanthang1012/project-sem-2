@@ -16,6 +16,6 @@ public interface IPunishDA {
     public List<Punish> getAll();
     public Punish get(int punishId);
     public String create(Punish p);
-    public String update(Punish P);
+    public String update(Punish p);
     public String delete(int punishId);
 }

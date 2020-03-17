@@ -15,28 +15,12 @@ public class Student {
     private int id;
     private String studentId;
     private String name;
+    private byte gender;
     private String className;
     private String phone;
     private Date dateofbirth;
 
     public Student() {
-    }
-
-    public Student(String studentId, String name, String className, String phone, Date dateofbirth) {
-        this.studentId = studentId;
-        this.name = name;
-        this.className = className;
-        this.phone = phone;
-        this.dateofbirth = dateofbirth;
-    }
-
-    public Student(int id, String studentId, String name, String className, String phone, Date dateofbirth) {
-        this.id = id;
-        this.studentId = studentId;
-        this.name = name;
-        this.className = className;
-        this.phone = phone;
-        this.dateofbirth = dateofbirth;
     }
 
     public int getId() {
@@ -63,6 +47,14 @@ public class Student {
         this.name = name;
     }
 
+    public byte getGender() {
+        return gender;
+    }
+
+    public void setGender(byte gender) {
+        this.gender = gender;
+    }
+
     public String getClassName() {
         return className;
     }
@@ -84,6 +76,25 @@ public class Student {
     }
 
     public void setDateofbirth(Date dateofbirth) {
+        this.dateofbirth = dateofbirth;
+    }
+
+    public Student(String studentId, String name, byte gender, String className, String phone, Date dateofbirth) {
+        this.studentId = studentId;
+        this.name = name;
+        this.gender = gender;
+        this.className = className;
+        this.phone = phone;
+        this.dateofbirth = dateofbirth;
+    }
+
+    public Student(int id, String studentId, String name, byte gender, String className, String phone, Date dateofbirth) {
+        this.id = id;
+        this.studentId = studentId;
+        this.name = name;
+        this.gender = gender;
+        this.className = className;
+        this.phone = phone;
         this.dateofbirth = dateofbirth;
     }
 

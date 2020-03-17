@@ -15,8 +15,8 @@ import java.util.List;
 public interface IStudentDA {
     public List<Student> getAll();
     public Student get(int id);
-    public Student getStudentByStudentId(int studentId);
-    public boolean create(Student s);
-    public boolean update(Student s);
-    public boolean delete(int id);
+    public List<Student> getStudentByStudentId(String studentId);
+    public String create(Student s);
+    public String update(Student s);
+    public String delete(int id);
 }
