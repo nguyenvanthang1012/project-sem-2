@@ -12,20 +12,17 @@ package identities;
 public class Category {
     private int catId;
     private String name;
-    private byte status;
 
     public Category() {
     }
 
-    public Category(int catId, String name, byte status) {
+    public Category(int catId, String name) {
         this.catId = catId;
         this.name = name;
-        this.status = status;
     }
 
-    public Category(String name, byte status) {
+    public Category(String name) {
         this.name = name;
-        this.status = status;
     }
 
     public int getCatId() {
@@ -42,14 +39,6 @@ public class Category {
 
     public void setName(String name) {
         this.name = name;
-    }
-
-    public byte getStatus() {
-        return status;
-    }
-
-    public void setStatus(byte status) {
-        this.status = status;
     }
 
     @Override

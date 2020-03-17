@@ -15,7 +15,7 @@ import java.util.List;
 public interface IPunishDA {
     public List<Punish> getAll();
     public Punish get(int punishId);
-    public boolean create(Punish p);
-    public boolean update(Punish P);
-    public boolean delete(int punishId);
+    public String create(Punish p);
+    public String update(Punish P);
+    public String delete(int punishId);
 }

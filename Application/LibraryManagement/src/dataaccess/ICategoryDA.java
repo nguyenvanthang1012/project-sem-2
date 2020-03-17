@@ -14,9 +14,9 @@ import java.util.List;
  */
 public interface ICategoryDA {
     public List<Category> getAll();
-    public Category search(int catId);
+    public Category get(int catId);
     public List<Category> searchByName(String name);
-    public boolean create(Category c);
-    public boolean update(Category c);
-    public boolean delete(int catId);
+    public String create(Category c);
+    public String update(Category c);
+    public String delete(int catId);
 }

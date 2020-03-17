@@ -15,7 +15,7 @@ import java.util.List;
 public interface IBorrowDA{
     public List<Borrow> getAll();
     public Borrow get(int borrowId);
-    public <T>T create(Borrow b);
+    public String create(Borrow b);
     public String update(Borrow b);
-    public <T>T delete(int borrowId);
+    public String delete(int borrowId);
 }

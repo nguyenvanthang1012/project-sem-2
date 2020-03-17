@@ -15,7 +15,7 @@ import java.util.List;
 public interface IBorrowDetailDA {
     public List<BorrowDetail> getAll();
     public BorrowDetail get(int borrowDetailId);
-    public boolean create(BorrowDetail b);
-    public boolean update(BorrowDetail b);
-    public boolean delete(int borrowDetailId);
+    public String create(BorrowDetail b);
+    public String update(BorrowDetail b);
+    public String delete(int borrowDetailId);
 }

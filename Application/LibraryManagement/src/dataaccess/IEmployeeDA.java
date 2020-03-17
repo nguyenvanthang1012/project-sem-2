@@ -17,8 +17,8 @@ public interface IEmployeeDA {
     public Employee get(int employeeId);
     public List<Employee> findByPhone(String phone);
     public List<Employee> findByEmail(String email);
-    public Employee getByAccount(String accountId);
-    public boolean update(Employee e);
-    public boolean delete(int bookId);
-    public boolean create(Employee e);
+    public Employee getByAccount(int accountId);
+    public String create(Employee e);
+    public String update(Employee e);
+    public String delete(int bookId);
 }

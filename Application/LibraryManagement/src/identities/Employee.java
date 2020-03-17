@@ -5,6 +5,8 @@
  */
 package identities;
 
+import java.sql.Date;
+
 /**
  *
  * @author A
@@ -13,6 +15,7 @@ public class Employee {
     private int employeeId;
     private int accountId;
     private String name;
+    private Date dateofbirth;
     private String phone;
     private String email;
     private String home_town;
@@ -20,21 +23,31 @@ public class Employee {
     public Employee() {
     }
 
-    public Employee(int employeeId, int accountId, String name, String phone, String email, String home_town) {
+    public Employee(int employeeId, int accountId, String name, Date dateofbirth , String phone, String email, String home_town) {
         this.employeeId = employeeId;
         this.accountId = accountId;
         this.name = name;
+        this.dateofbirth = dateofbirth;
         this.phone = phone;
         this.email = email;
         this.home_town = home_town;
     }
 
-    public Employee(int accountId, String name, String phone, String email, String home_town) {
+    public Employee(int accountId, String name, Date dateofbirth , String phone, String email, String home_town) {
         this.accountId = accountId;
         this.name = name;
+        this.dateofbirth = dateofbirth;
         this.phone = phone;
         this.email = email;
         this.home_town = home_town;
+    }
+
+    public Date getDateofbirth() {
+        return dateofbirth;
+    }
+
+    public void setDateofbirth(Date dateofbirth) {
+        this.dateofbirth = dateofbirth;
     }
 
     public int getEmployeeId() {

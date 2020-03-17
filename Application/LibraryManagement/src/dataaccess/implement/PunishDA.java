@@ -6,6 +6,8 @@
 package dataaccess.implement;
 
 import identities.Punish;
+import java.sql.Connection;
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -13,10 +15,15 @@ import java.util.List;
  * @author A
  */
 public class PunishDA implements dataaccess.IPunishDA{
+    
+    Connection con;
 
+    public PunishDA(){
+        con = ConnectionDB.getConnection();
+    }
     @Override
     public List<Punish> getAll() {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        List<Punish> list = new ArrayList<>();
     }
 
     @Override
@@ -25,17 +32,17 @@ public class PunishDA implements dataaccess.IPunishDA{
     }
 
     @Override
-    public boolean create(Punish p) {
+    public String create(Punish p) {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
     @Override
-    public boolean update(Punish P) {
+    public String update(Punish P) {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
     @Override
-    public boolean delete(int punishId) {
+    public String delete(int punishId) {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
     
